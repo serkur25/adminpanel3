@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Tasarımı</title>
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-section">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="anasayfa.php">AnaSayfa</a></li>
+                <li><a href="index.php">Oyun İncelemeleri</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Kategoriler</a>
+                    <div class="dropdown-content">
+                        <a href="savas.php">Savaş</a>
+                        <a href="macera.php">Macera</a>
+                        <a href="#">Aksiyon</a>
+                        <a href="#">Rol Yapma</a>
+                        <a href="#">Korku</a>
+                        <a href="#">Dövüş</a>
+                        <a href="#">Nişancı</a>
+                        <a href="#">Platform</a>
+                    </div>
+                </li>
+                <li><a href="haberler.php">Haberler</a></li>
+                <li><a href="adminpanel/giris.html">Yönetici Girişi</a></li>
+            </ul>
+        </div>
+        <div class="right-section">
+            <input type="text" placeholder="Oyun Ara...">
+            <i class="search-icon">&#128269;</i> <!-- Unicode karakterini arama ikonu için kullanıyoruz -->
+        </div>
+    </nav>
+
+    <script src="navbarscript.js"></script>
+</body>
+</html>

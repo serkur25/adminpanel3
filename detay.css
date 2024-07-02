@@ -1,0 +1,29 @@
+.oyun {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.oyun img {
+    max-width: 100%;
+    height: auto;
+}
+
+.oyun h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.oyun p {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+.oyun a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+}
