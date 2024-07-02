@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli</title>
+    <link rel="stylesheet" href="admin-panel.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-primary text-white border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading font-weight-bold">Admin Paneli</div>
+            <div class="list-group list-group-flush">
+                <button class="list-group-item list-group-item-action bg-primary text-white font-weight-bold" onclick="openTab(event, 'Oyunlar')">Oyun İncelemeleri</button>
+                <button class="list-group-item list-group-item-action bg-primary text-white font-weight-bold" onclick="openTab(event, 'Haberler')">Haberler</button>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div id="Oyunlar" class="tabcontent">
+                    <h2>Oyun İncelemeleri</h2>
+                    <button class="btn btn-primary mb-4" onclick="openNewOyunForm()">YENİ VERİ EKLE</button>
+                    <h3>Oyunlar Listesi</h3>
+                    <div id="oyunlarListesi" class="table-container"></div>
+                    <nav>
+                        <ul class="pagination justify-content-center" id="oyunPagination">
+                            <!-- Sayfalama butonları burada olacak -->
+                        </ul>
+                    </nav>
+                </div>
+                <div id="Haberler" class="tabcontent">
+                    <h2>Haberler</h2>
+                    <button class="btn btn-primary mb-4" onclick="openNewHaberForm()">YENİ VERİ EKLE</button>
+                    <h3>Haberler Listesi</h3>
+                    <div id="haberlerListesi" class="table-container"></div>
+                    <nav>
+                        <ul class="pagination justify-content-center" id="haberPagination">
+                            <!-- Sayfalama butonları burada olacak -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Oyun Düzenle Modal -->
+    <div class="modal fade" id="editOyunModal" tabindex="-1" aria-labelledby="editOyunModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOyunModalLabel">Oyun İncelemesi Düzenle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editOyunForm">
+                        <input type="hidden" id="editOyunId" name="id">
+                        <div class="form-group">
+                            <label for="editOyunResim">Görsel:</label>
+                            <img id="editOyunResim" class="img-fluid mb-3" src="" alt="Oyun Resmi">
+                            <input type="file" class="form-control-file" id="editOyunResimFile" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="editOyunBaslik">Başlık:</label>
+                            <input type="text" class="form-control" id="editOyunBaslik" name="baslik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editOyunAciklama">Açıklama:</label>
+                            <textarea class="form-control" id="editOyunAciklama" name="aciklama" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editOyunDetayliAciklama">Detaylı Açıklama:</label>
+                            <textarea class="form-control" id="editOyunDetayliAciklama" name="detayli_aciklama" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editOyunTur">Tür:</label>
+                            <input type="text" class="form-control" id="editOyunTur" name="tur" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Haber Düzenle Modal -->
+    <div class="modal fade" id="editHaberModal" tabindex="-1" aria-labelledby="editHaberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editHaberModalLabel">Haber Düzenle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editHaberForm">
+                        <input type="hidden" id="editHaberId" name="id">
+                        <div class="form-group">
+                            <label for="editHaberGorsel">Görsel:</label>
+                            <img id="editHaberGorsel" class="img-fluid mb-3" src="" alt="Haber Resmi">
+                            <input type="file" class="form-control-file" id="editHaberGorselFile" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="editHaberBaslik">Başlık:</label>
+                            <input type="text" class="form-control" id="editHaberBaslik" name="baslik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editHaberAciklama">Açıklama:</label>
+                            <textarea class="form-control" id="editHaberAciklama" name="aciklama" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yeni Oyun Ekle Modal -->
+    <div class="modal fade" id="newOyunModal" tabindex="-1" aria-labelledby="newOyunModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newOyunModalLabel">Yeni Oyun İncelemesi Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newOyunForm">
+                        <div class="form-group">
+                            <label for="newOyunResim">Görsel:</label>
+                            <input type="file" class="form-control-file" id="newOyunResim" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newOyunBaslik">Başlık:</label>
+                            <input type="text" class="form-control" id="newOyunBaslik" name="baslik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newOyunAciklama">Açıklama:</label>
+                            <textarea class="form-control" id="newOyunAciklama" name="aciklama" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newOyunDetayliAciklama">Detaylı Açıklama:</label>
+                            <textarea class="form-control" id="newOyunDetayliAciklama" name="detayli_aciklama" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newOyunTur">Tür:</label>
+                            <input type="text" class="form-control" id="newOyunTur" name="tur" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yeni Haber Ekle Modal -->
+    <div class="modal fade" id="newHaberModal" tabindex="-1" aria-labelledby="newHaberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newHaberModalLabel">Yeni Haber Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newHaberForm">
+                        <div class="form-group">
+                            <label for="newHaberGorsel">Görsel:</label>
+                            <input type="file" class="form-control-file" id="newHaberGorsel" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newHaberBaslik">Başlık:</label>
+                            <input type="text" class="form-control" id="newHaberBaslik" name="baslik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newHaberAciklama">Açıklama:</label>
+                            <textarea class="form-control" id="newHaberAciklama" name="aciklama" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // CKEditor'ı init eden script
+        CKEDITOR.replace('newOyunAciklama');
+        CKEDITOR.replace('newOyunDetayliAciklama');
+        CKEDITOR.replace('editOyunAciklama');
+        CKEDITOR.replace('editOyunDetayliAciklama');
+        CKEDITOR.replace('newHaberAciklama');
+        CKEDITOR.replace('editHaberAciklama');
+    </script>
+    <script src="admin-panel.js"></script>
+</body>
+</html>
